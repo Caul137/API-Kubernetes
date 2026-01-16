@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+
+
+metadata:
+  name: app-service-db
+
+  
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 30%
+      maxUnavailable: 10%
+  selector:
+    matchLabels:
+      app: app-service-db
+  template:
+    metadata:
+      labels:
+        app: app-service-db
+  envFrom:
+    - configMapRef:
+          name: app-db
+    - secretRef:
+          name: app-db-secrets

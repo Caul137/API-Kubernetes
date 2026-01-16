@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service 
+
+metadata:
+  name: app-api-svc
+
+spec:
+  type: ClusterIP
+  selector:
+    api: app-service-api
+  ports:
+    - port: 80
+      targetPort: 3000

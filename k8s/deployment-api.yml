@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+
+
+metadata:
+  name: app-service-api
+
+
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 30%
+      maxUnavailable: 10%
+  selector:
+    matchLabels:
+      app: app-service-api
+  template:
+    metadata:
+      labels:
+        app: app-service-api
+  readnessProbe:
+    httpGet:
+      path: /status
+      port: 3000
+    failureThreshold: 3
+    successThreshold: 1
+    timeoutSeconds: 1
+    periodSeconds: 15
+    initialDelaySeconds: 10
+  livenessProbe:
+    httpGet:
+      path: /status
+      port: 3000
+      failureThreshold: 3
+    successThreshold: 1
+    timeoutSeconds: 1
+    periodSeconds: 15
+    initialDelaySeconds: 10
