@@ -22,6 +22,38 @@ spec:
         app: app-service-db
   envFrom:
     - configMapRef:
-          name: app-db
+          name: app-service-db
     - secretRef:
           name: app-db-secrets
+  readnessProbe:
+    httpGet:
+      path: /status
+      port: 3000
+    failureThreshold: 3
+    successThreshold: 1
+    timeoutSeconds: 1
+    periodSeconds: 15
+    initialDelaySeconds: 10
+  livenessProbe:
+    httpGet:
+      path: /status
+      port: 3000
+      failureThreshold: 3
+    successThreshold: 1
+    timeoutSeconds: 1
+    periodSeconds: 15
+    initialDelaySeconds: 10
+  resources:
+    requests:
+      cpu: 90m
+      memory: 60Mi
+    limits:
+      cpu: 100M
+      memory: 110Mi
+  volumeMounts:
+    - name: app-service-db-data
+      mountPath: /usr/src/app/uploads
+volumes:
+  - name: app-service-db-data
+    persistentVolumeClaim:
+      claimName: db-pvc
