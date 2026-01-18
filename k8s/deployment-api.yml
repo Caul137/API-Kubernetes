@@ -8,11 +8,6 @@ metadata:
 
 spec:
   replicas: 1
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 30%
-      maxUnavailable: 10%
   selector:
     matchLabels:
       app: app-service-api
@@ -20,28 +15,27 @@ spec:
     metadata:
       labels:
         app: app-service-api
-  readinessProbe:
-    httpGet:
-      path: /status
-      port: 3000
-    failureThreshold: 3
-    successThreshold: 1
-    timeoutSeconds: 1
-    periodSeconds: 15
-    initialDelaySeconds: 10
-  livenessProbe:
-    httpGet:
-      path: /status
-      port: 3000
-      failureThreshold: 3
-    successThreshold: 1
-    timeoutSeconds: 1
-    periodSeconds: 15
-    initialDelaySeconds: 10
-  resources:
-    requests:
-      cpu: 90m
-      memory: 60Mi
-    limits:
-      cpu: 100m
-      memory: 110Mi
+    spec:
+      containers:
+        - name: api-container
+          image: minha-api:v1 
+          imagePullPolicy: IfNotPresent 
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /status
+              port: 3000
+            initialDelaySeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /status
+              port: 3000
+            initialDelaySeconds: 15
+          resources:
+            requests:
+              cpu: 90m
+              memory: 64Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
