@@ -8,9 +8,6 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: standart
+  storageClassName: standard
   accessModes:
     - ReadWriteOnce
-  selector:
-    matchLabels:
-      name: db-pvc

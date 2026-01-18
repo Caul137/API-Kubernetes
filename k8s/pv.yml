@@ -12,6 +12,6 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete
-  storageClassName: standart
+  storageClassName: standard
   hostPath:
     path: /mnt/data

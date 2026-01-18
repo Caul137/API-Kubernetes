@@ -20,7 +20,7 @@ spec:
     metadata:
       labels:
         app: app-service-api
-  readnessProbe:
+  readinessProbe:
     httpGet:
       path: /status
       port: 3000
@@ -43,5 +43,5 @@ spec:
       cpu: 90m
       memory: 60Mi
     limits:
-      cpu: 100M
+      cpu: 100m
       memory: 110Mi

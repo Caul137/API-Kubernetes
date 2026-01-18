@@ -1,18 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 
-
 metadata:
   name: app-service-db
 
-  
 spec:
   replicas: 1
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 30%
-      maxUnavailable: 10%
   selector:
     matchLabels:
       app: app-service-db
@@ -20,40 +13,32 @@ spec:
     metadata:
       labels:
         app: app-service-db
-  envFrom:
-    - configMapRef:
-          name: app-service-db
-    - secretRef:
-          name: app-db-secrets
-  readnessProbe:
-    httpGet:
-      path: /status
-      port: 3000
-    failureThreshold: 3
-    successThreshold: 1
-    timeoutSeconds: 1
-    periodSeconds: 15
-    initialDelaySeconds: 10
-  livenessProbe:
-    httpGet:
-      path: /status
-      port: 3000
-      failureThreshold: 3
-    successThreshold: 1
-    timeoutSeconds: 1
-    periodSeconds: 15
-    initialDelaySeconds: 10
-  resources:
-    requests:
-      cpu: 90m
-      memory: 60Mi
-    limits:
-      cpu: 100M
-      memory: 110Mi
-  volumeMounts:
-    - name: app-service-db-data
-      mountPath: /usr/src/app/uploads
-volumes:
-  - name: app-service-db-data
-    persistentVolumeClaim:
-      claimName: db-pvc
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          envFrom:
+            - configMapRef:
+                name: app-config-map-db
+            - secretRef:
+                name: app-db-secrets
+          ports:
+            - containerPort: 3306
+          resources:
+            requests:
+              cpu: 100m
+              memory: 250Mi
+            limits:
+              cpu: 120m
+              memory: 112Mi
+          readinessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 20
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-data
+          persistentVolumeClaim:
+            claimName: db-pvc
