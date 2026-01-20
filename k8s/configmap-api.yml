@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config-map-api
+  namespace: desafio-api 
+data:
+  MYSQL_DATABASE: "meu_banco"
+  MYSQL_USER: "usuario"
+  DB_HOST: "app-db-svc.desafio-db.svc.cluster.local"

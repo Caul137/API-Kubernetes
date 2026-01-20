@@ -3,6 +3,7 @@ kind: Service
 
 metadata:
   name: app-db-svc
+  namespace: desafio-db
 
 spec:
   type: ClusterIP

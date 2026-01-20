@@ -3,6 +3,7 @@ kind: PersistentVolumeClaim
 
 metadata:
   name: db-pvc
+  namespace: desafio-db
 
 spec:
   resources:

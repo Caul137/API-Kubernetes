@@ -4,7 +4,7 @@ kind: Deployment
 
 metadata:
   name: app-service-api
-
+  namespace: desafio-api
 
 spec:
   replicas: 1
@@ -18,10 +18,15 @@ spec:
     spec:
       containers:
         - name: api-container
-          image: minha-api:v1 
+          image: api-kube:v1 
           imagePullPolicy: IfNotPresent 
           ports:
             - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: app-config-map-api
+            - secretRef:
+                name: app-api-secrets
           readinessProbe:
             httpGet:
               path: /status

@@ -3,7 +3,8 @@ kind: ConfigMap
 
 metadata:
   name: app-config-map-db
-
+  namespace: desafio-db
+  
 data:
   MYSQL_DATABASE: "meu_banco"
-  MYSQL_USER: "usuario_api"
+  MYSQL_USER: "usuario"
