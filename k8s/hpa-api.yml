@@ -3,6 +3,7 @@ kind: HorizontalPodAutoscaler
 
 metadata:
   name: app-api-hpa
+  namespace: desafio-api
 
 spec:
   scaleTargetRef:
