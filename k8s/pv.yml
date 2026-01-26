@@ -3,6 +3,7 @@ kind: PersistentVolume
 
 metadata:
   name: db-pv
+  namespace: desafio-db
   labels:
     name: db-pv
 

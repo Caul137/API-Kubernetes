@@ -6,7 +6,7 @@ const port = 3000;
 
 const dbconfig = {
     host: process.env.DB_HOST || 'app-db-svc.desafio-db.svc.cluster.local',
-    user: process.env.MYSQL_USER,         
+    user: 'root',         
     password: process.env.MYSQL_ROOT_PASSWORD, 
     database: process.env.MYSQL_DATABASE     
 }
