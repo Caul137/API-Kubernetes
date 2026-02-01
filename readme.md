@@ -94,6 +94,7 @@ O projeto está dividido em dois Namespaces:
 --
             **(CRIA O BANCO PARA O ConfigMap)**
            ** CREATE DATABASE IF NOT EXISTS** meu_banco;
+
 --
            **(APLICA AS MUDANÇAS)**
             FLUSH PRIVILEGES;
@@ -109,6 +110,20 @@ O projeto está dividido em dois Namespaces:
         - **Status do HPA:** kubectl get hpa -n desafio-api
 
 **Obs**: Esta é a forma que encontrei de se conetar, caso haja outra, pode usar. Também pode tentar utilizar algum client para o SQL como o Beekeeper, caso queira.
+
+
+Para criar uma table e inserir um texto:
+-   Entre no banco:
+    - USE meu_banco
+    - CREATE TABLE IF NOT EXISTS mensagens(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        texto VARCHAR(255)
+    );
+
+    - INSERT INTO mensagens (texto) VALUES ('Dados persistidos com sucesso');
+    - EXIT;
+
+    Após isso, o texto aparecerá no endpoint /dados
 
 ---
 

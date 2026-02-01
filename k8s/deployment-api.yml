@@ -7,6 +7,11 @@ metadata:
   namespace: desafio-api
 
 spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   replicas: 1
   selector:
     matchLabels:
@@ -18,7 +23,7 @@ spec:
     spec:
       containers:
         - name: api-container
-          image: api-kube:v2
+          image: api-kube:v4
           imagePullPolicy: IfNotPresent 
           ports:
             - containerPort: 3000
