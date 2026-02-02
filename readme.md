@@ -147,9 +147,12 @@ Para criar uma table e inserir um texto:
 
 ---
 
-### 📘 Dados registrados
+### 📘 Aumento de Carga registrados
 
-
-
+* Eu rodei: 
+* Você pode visualizar o IP do cluster com:
+* E verifiquei a HPA com: 
+* Peguei os logs com: 
+* E após os 2 minutos, pode deletar o pod do fortio: k
 
 ---
